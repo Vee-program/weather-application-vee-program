@@ -7,38 +7,14 @@ function showCurrentTemperature(response) {
   let currentWindSpeed = document.querySelector("#current-wind-speed");
   let weatherEmoji = document.querySelector(".weather-emoji");
   let temperature = Math.round(response.data.temperature.current);
+  let currentDate = document.querySelector(".current-date");
+  let date = new Date(response.data.time * 1000);
   currentTemperatureValue.textContent = temperature;
   description.textContent = response.data.condition.description;
   currentHumidity.textContent = `${response.data.temperature.humidity}%`;
   currentWindSpeed.textContent = `${response.data.wind.speed}km/h`;
   weatherEmoji.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-emoji" />`;
-
-  let currentDate = document.querySelector(".current-date");
-  let date = new Date();
-  let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
-  let months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  let day = days[date.getDay()];
-  let month = months[date.getMonth()];
-  let dayNumber = date.getDate();
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-
-  let time = `${day}, ${date} ${month} ${hours}:${minutes}`;
-
-  currentDate.textContent = `response.data.${time}`;
+  currentDate.innerHTML = showCurrentDate(date);
 }
 
 function searchInputCity(event) {
@@ -54,9 +30,8 @@ function searchInputCity(event) {
   showCurrentTemperature(response);
 }
 
-function showCurrentDate() {
+function showCurrentDate(date) {
   let currentDate = document.querySelector(".current-date");
-  let date = new Date();
   let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
   let months = [
     "January",
@@ -78,8 +53,11 @@ function showCurrentDate() {
   let hours = date.getHours();
   let minutes = date.getMinutes();
 
-  currentDate.textContent = `${day}, ${date} ${month} ${hours}:${minutes}`;
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day}, ${date} ${month} ${hours}:${minutes}`;
 }
-showCurrentDate();
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
