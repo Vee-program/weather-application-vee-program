@@ -4,32 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather application</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet" />
   </head>
   <body>
-    <form>
-      <input
-        type="text"
-        class="current-city"
-        id="current-city"
-        placeholder="Enter a city" />
-      <input type="submit" value="Search" />
-    </form>
-    <main>
-      <h1>Paris</h1>
-      <p>Mon 14 February 13:21</p>
-      <p><span>☀️14°C</span></p>
-      <span
-        >Clear sky <br />Humidity: <strong>90%</strong>, Wind:
-        <strong>2.75km/h</strong></span
-      >
-    </main>
-    <footer>
-      <p>
-        This project was coded by
-        <a href="#" target="_blank">Thembelihle Masilela</a> is
-        <a href="#" target="_blank">open-sourced on Github</a> and
-        <a href="#" target="_blank">hosted on Netlify</a>
-      </p>
-    </footer>
+    <div class="weather-container">
+      <form>
+        <input
+          type="text"
+          class="input-city"
+          id="input-city"
+          placeholder="Enter a city" />
+        <input type="submit" value="Search" class="search-button" />
+      </form>
+      <main>
+        <span class="current-city">Paris</span><br />
+        <span class="current-date">Mon 14 February 13:21</span>
+        <p class="current-temperature-value">
+          ☀️<span id="current-temperature-value">14</span>°C
+        </p>
+        <div class="current-temperature">
+          <span
+            ><span id="description">Clear sky</span> <br />Humidity:
+            <strong id="current-humidity">90%</strong>, Wind:
+            <strong id="current-wind-speed">2.75km/h</strong></span
+          >
+        </div>
+      </main>
+      <footer>
+        <p>
+          This project was coded by
+          <a href="#" target="_blank">Thembelihle Masilela</a> is
+          <a href="#" target="_blank">open-sourced on Github</a> and
+          <a href="#" target="_blank">hosted on Netlify</a>
+        </p>
+      </footer>
+    </div>
+    <script src="index.js"></script>
   </body>
 </html>
