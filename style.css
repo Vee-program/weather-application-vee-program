@@ -44,11 +44,16 @@ input.input-city {
 .current-date {
   font-size: 14px;
 }
-.current-temperature-value {
+.temperature-value {
   font-size: 50px;
 }
 .current-temperature {
   position: absolute;
   top: 350px;
   right: 420px;
+}
+.weather-emoji {
+  font-size: 50px;
+  width: 80px;
+  height: 80px;
 }

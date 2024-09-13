@@ -10,6 +10,7 @@
     <link
       href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
       rel="stylesheet" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="weather-container">
@@ -24,8 +25,9 @@
       <main>
         <span class="current-city">Paris</span><br />
         <span class="current-date">Mon 14 February 13:21</span>
-        <p class="current-temperature-value">
-          ☀️<span id="current-temperature-value">14</span>°C
+        <p class="temperature-value">
+          <span class="weather-emoji"></span
+          ><span id="current-temperature-value">14</span>°C
         </p>
         <div class="current-temperature">
           <span
