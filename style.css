@@ -57,3 +57,13 @@ input.input-city {
   width: 80px;
   height: 80px;
 }
+.weather-forecast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.weather-forecast-temperatures {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

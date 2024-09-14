@@ -26,8 +26,10 @@ function searchInputCity(event) {
   let city = inputCity.value;
   let apiKey = "19fa4a86457804tcabc33b0a088f366o";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
+  let apiForecast = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
   axios.get(apiUrl).then(showCurrentTemperature);
   showCurrentTemperature(response);
+  showWeatherForecast(response);
 }
 
 function showCurrentDate(date) {
@@ -59,5 +61,33 @@ function showCurrentDate(date) {
 
   return `${day}, ${date} ${month} ${hours}:${minutes}`;
 }
+
+function showForecastDate() {
+  let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+  let day = days[now.getDay()];
+}
+
+function showWeatherForecast() {
+  let weatherForecast = document.querySelector(".weather-forecast");
+  // let date = new Date(response.data.time * 1000);
+
+  let days = ["Tue", "Wed", "Thur", "Fri", "Sat"];
+  //let temperatureMin = Math.round(response.data.temperature.minimum);
+  //let temperatureMax = Math.round(respinse.data.temperature.maximum);
+
+  days.forEach(function (day) {
+    alert(day);
+    // forecastHtml += `<div class="weather-forecast-day">
+    // <div class="weather-forecast-date">Tue</div>
+    // <div class="weather-forecast-icon">☀️</div>
+    // <div class="weather-forecast-temperatures>
+    //<div class="weather-forecast-temperature"><strong>10</strong></div>
+    //<div class="weather-forecast-temperature"><strong>11</strong></div>
+    //</div>
+    // </div>`;
+  });
+}
+
+showWeatherForecast();
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
