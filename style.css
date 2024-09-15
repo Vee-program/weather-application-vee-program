@@ -49,7 +49,7 @@ input.input-city {
 }
 .current-temperature {
   position: absolute;
-  top: 350px;
+  top: 250px;
   right: 420px;
 }
 .weather-emoji {
@@ -61,9 +61,23 @@ input.input-city {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 30px;
+}
+
+.weather-forecast-date {
+  text-align: center;
+  font-size: 16px;
+}
+
+.weather-forecast-icon {
+  width: 100%;
 }
 .weather-forecast-temperatures {
+  text-align: center;
+  margin-top: 10px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+}
+.weather-forecast-temperature {
+  padding: 0 10px;
 }

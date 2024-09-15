@@ -8,28 +8,17 @@ function showCurrentTemperature(response) {
   let weatherEmoji = document.querySelector(".weather-emoji");
   let temperature = Math.round(response.data.temperature.current);
   let currentDate = document.querySelector(".current-date");
+  let currentCity = document.querySelector(".current-city");
   let date = new Date(response.data.time * 1000);
+  currentCity.innerHTML = response.data.city;
   currentTemperatureValue.textContent = temperature;
   description.textContent = response.data.condition.description;
   currentHumidity.textContent = `${response.data.temperature.humidity}%`;
   currentWindSpeed.textContent = `${response.data.wind.speed}km/h`;
   weatherEmoji.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-emoji" />`;
   currentDate.innerHTML = showCurrentDate(date);
-}
 
-function searchInputCity(event) {
-  event.preventDefault();
-  let inputCity = document.querySelector("#input-city");
-  let currentCity = document.querySelector(".current-city");
-  currentCity.textContent = inputCity.value;
-
-  let city = inputCity.value;
-  let apiKey = "19fa4a86457804tcabc33b0a088f366o";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
-  let apiForecast = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`;
-  axios.get(apiUrl).then(showCurrentTemperature);
-  showCurrentTemperature(response);
-  showWeatherForecast(response);
+  displayForecast(response.data.city);
 }
 
 function showCurrentDate(date) {
@@ -62,32 +51,60 @@ function showCurrentDate(date) {
   return `${day}, ${date} ${month} ${hours}:${minutes}`;
 }
 
-function showForecastDate() {
-  let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
-  let day = days[now.getDay()];
+function displayTemperature(city) {
+  let apiKey = "19fa4a86457804tcabc33b0a088f366o";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showCurrentTemperature);
 }
 
-function showWeatherForecast() {
-  let weatherForecast = document.querySelector(".weather-forecast");
-  // let date = new Date(response.data.time * 1000);
+function searchInputCity(event) {
+  event.preventDefault();
+  let inputCity = document.querySelector("#input-city");
+  displayTemperature(inputCity.value);
+}
 
-  let days = ["Tue", "Wed", "Thur", "Fri", "Sat"];
-  //let temperatureMin = Math.round(response.data.temperature.minimum);
-  //let temperatureMax = Math.round(respinse.data.temperature.maximum);
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  days.forEach(function (day) {
-    alert(day);
-    // forecastHtml += `<div class="weather-forecast-day">
-    // <div class="weather-forecast-date">Tue</div>
-    // <div class="weather-forecast-icon">☀️</div>
-    // <div class="weather-forecast-temperatures>
-    //<div class="weather-forecast-temperature"><strong>10</strong></div>
-    //<div class="weather-forecast-temperature"><strong>11</strong></div>
-    //</div>
-    // </div>`;
+  return days[date.getDay()];
+}
+
+function displayForecast(city) {
+  let apiKey = "19fa4a86457804tcabc33b0a088f366o";
+  apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showWeatherForecast);
+}
+
+function showWeatherForecast(response) {
+  let forecastHtml = " ";
+
+  response.data.daily.forEach(function (day, index) {
+    if (index < 5) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="weather-forecast-day">
+     <div class="weather-forecast-date">${formatDay(day.time)}</div>
+     <div class="weather-forecast-icon"><img src="${
+       day.condition.icon_url
+     }"</div>
+    <div class="weather-forecast-temperatures>
+    <div class="weather-forecast-temperature"><strong>${Math.round(
+      day.temperature.minimum
+    )}</strong></div>
+    <div class="weather-forecast-temperature"><strong>${Math.round(
+      day.temperature.maximum
+    )}</strong></div>
+    </div>
+    </div>`;
+    }
   });
+  let forecast = document.querySelector("#forecast");
+  forecast.innerHTML = forecastHtml;
 }
+console.error();
 
-showWeatherForecast();
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
+
+displayTemperature("Paris");
