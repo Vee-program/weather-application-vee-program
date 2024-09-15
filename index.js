@@ -89,12 +89,12 @@ function showWeatherForecast(response) {
        day.condition.icon_url
      }"</div>
     <div class="weather-forecast-temperatures>
-    <div class="weather-forecast-temperature"><strong>${Math.round(
-      day.temperature.minimum
-    )}</strong></div>
-    <div class="weather-forecast-temperature"><strong>${Math.round(
+    <div class="weather-forecast-temperature">${Math.round(
       day.temperature.maximum
-    )}</strong></div>
+    )}°C</div>
+    <div class="weather-forecast-temperature">${Math.round(
+      day.temperature.minimum
+    )}°C</div>
     </div>
     </div>`;
     }
@@ -102,8 +102,6 @@ function showWeatherForecast(response) {
   let forecast = document.querySelector("#forecast");
   forecast.innerHTML = forecastHtml;
 }
-console.error();
-
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
 
