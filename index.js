@@ -85,16 +85,16 @@ function showWeatherForecast(response) {
         forecastHtml +
         `<div class="weather-forecast-day">
      <div class="weather-forecast-date">${formatDay(day.time)}</div>
-     <div class="weather-forecast-icon"><img src="${
+     <div class="weather-forecast-icon"><img class="forecast-icon" src="${
        day.condition.icon_url
      }"</div>
     <div class="weather-forecast-temperatures>
-    <div class="weather-forecast-temperature">${Math.round(
+    <span class="weather-forecast-temperature">${Math.round(
       day.temperature.maximum
-    )}°C</div>
-    <div class="weather-forecast-temperature">${Math.round(
+    )}°C</span>
+    <span class="weather-forecast-temperature">${Math.round(
       day.temperature.minimum
-    )}°C</div>
+    )}°C</span>
     </div>
     </div>`;
     }
