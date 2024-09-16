@@ -22,8 +22,7 @@ function showCurrentTemperature(response) {
 }
 
 function showCurrentDate(date) {
-  let currentDate = document.querySelector(".current-date");
-  let days = ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"];
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   let months = [
     "January",
     "February",
@@ -48,7 +47,7 @@ function showCurrentDate(date) {
     minutes = `0${minutes}`;
   }
 
-  return `${day}, ${date} ${month} ${hours}:${minutes}`;
+  return `${day},${month} ${hours}:${minutes}`;
 }
 
 function displayTemperature(city) {
@@ -84,14 +83,13 @@ function showWeatherForecast(response) {
       forecastHtml =
         forecastHtml +
         `<div class="weather-forecast-day">
-     <div class="weather-forecast-date">${formatDay(day.time)}</div>
-     <div class="weather-forecast-icon"><img class="forecast-icon" src="${
-       day.condition.icon_url
-     }"</div>
+        <div class="weather-forecast-date">${formatDay(day.time)}</div>
+
+     <img class="forecast-icon" src="${day.condition.icon_url}"/>
     <div class="weather-forecast-temperatures>
-    <span class="weather-forecast-temperature">${Math.round(
+    <span class="weather-forecast-temperature"><strong class="high">${Math.round(
       day.temperature.maximum
-    )}°C</span>
+    )}°C</strong></span>
     <span class="weather-forecast-temperature">${Math.round(
       day.temperature.minimum
     )}°C</span>
@@ -105,4 +103,4 @@ function showWeatherForecast(response) {
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
 
-displayTemperature("Paris");
+displayTemperature("Pretoria");

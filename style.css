@@ -34,6 +34,7 @@ input.input-city {
   font-size: 40px;
   font-weight: bold;
   padding-top: 30px;
+  color: black;
 }
 .search-button {
   width: 100px;
@@ -49,15 +50,19 @@ input.input-city {
 }
 .current-date {
   font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
 }
 .temperature-value {
-  margin-top: 0;
+  margin: 0 auto;
   font-size: 50px;
 }
 .current-temperature {
   position: relative;
-  bottom: 100px;
-  left: 300px;
+  bottom: 50px;
+  left: 400px;
+}
+.current-temperature-value {
+  padding-top: 10px;
 }
 .weather-emoji {
   font-size: 50px;
@@ -65,23 +70,31 @@ input.input-city {
   height: 80px;
 }
 .weather-forecast {
-  padding-bottom: 50px;
-}
-.weather-forecast-day {
   display: flex;
   justify-content: space-evenly;
+  margin-top: 0 auto;
+  margin-bottom: 20px;
 }
-
 .weather-forecast-date {
-  padding-bottom: 30px;
+  text-align: center;
+  color: black;
 }
 
 .forecast-icon {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   display: block;
+  margin: 0 auto;
 }
-.weather-forecast-temperature {
-  display: inline;
-  gap: 20px;
+.weather-forecast-temperatures {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.weather-forecast-temperature,
+.high {
+  padding: 0 10px;
+}
+footer {
+  padding-top: 50px;
 }
