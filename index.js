@@ -1,4 +1,4 @@
-function showCurrentTemperature(response) {
+function showCurrentTemperature(weatherData) {
   let currentTemperatureValue = document.querySelector(
     "#current-temperature-value"
   );
@@ -6,19 +6,19 @@ function showCurrentTemperature(response) {
   let currentHumidity = document.querySelector("#current-humidity");
   let currentWindSpeed = document.querySelector("#current-wind-speed");
   let weatherEmoji = document.querySelector(".weather-emoji");
-  let temperature = Math.round(response.data.temperature.current);
+  let temperature = Math.round(weatherData.temperature.current);
   let currentDate = document.querySelector(".current-date");
   let currentCity = document.querySelector(".current-city");
-  let date = new Date(response.data.time * 1000);
-  currentCity.innerHTML = response.data.city;
+  let date = new Date(weatherData.time * 1000);
+  currentCity.innerHTML = weatherData.city;
   currentTemperatureValue.textContent = temperature;
-  description.textContent = response.data.condition.description;
-  currentHumidity.textContent = `${response.data.temperature.humidity}%`;
-  currentWindSpeed.textContent = `${response.data.wind.speed}km/h`;
-  weatherEmoji.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-emoji" />`;
+  description.textContent = weatherData.condition.description;
+  currentHumidity.textContent = `${weatherData.temperature.humidity}%`;
+  currentWindSpeed.textContent = `${weatherData.wind.speed}km/h`;
+  weatherEmoji.innerHTML = `<img src="${weatherData.condition.icon_url}" class="weather-emoji" />`;
   currentDate.innerHTML = showCurrentDate(date);
 
-  displayForecast(response.data.city);
+  displayForecast(weatherData.city);
 }
 
 function showCurrentDate(date) {
@@ -53,7 +53,15 @@ function showCurrentDate(date) {
 function displayTemperature(city) {
   let apiKey = "19fa4a86457804tcabc33b0a088f366o";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showCurrentTemperature);
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      const weatherData = response.data;
+
+      showCurrentTemperature(weatherData);
+      updateBackground(weatherData);
+    })
+    .catch((error) => console.log("Error fetching weather data", error));
 }
 
 function searchInputCity(event) {
@@ -72,13 +80,20 @@ function formatDay(timestamp) {
 function displayForecast(city) {
   let apiKey = "19fa4a86457804tcabc33b0a088f366o";
   apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(showWeatherForecast);
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      const weatherData = response.data;
+
+      showWeatherForecast(weatherData);
+    })
+    .catch((error) => console.log("Error fetching weather data", error));
 }
 
-function showWeatherForecast(response) {
+function showWeatherForecast(weatherData) {
   let forecastHtml = " ";
 
-  response.data.daily.forEach(function (day, index) {
+  weatherData.daily.forEach(function (day, index) {
     if (index < 5) {
       forecastHtml =
         forecastHtml +
@@ -99,6 +114,40 @@ function showWeatherForecast(response) {
   });
   let forecast = document.querySelector("#forecast");
   forecast.innerHTML = forecastHtml;
+}
+
+function updateBackground(weatherData) {
+  let weatherCondition = weatherData.condition.description;
+  let backgroundImage = " ";
+  if (weatherCondition === "clear sky") {
+    backgroundImage = "clear-sky-day.jpg";
+  } else if (weatherCondition === "few clouds") {
+    backgroundImage = "few-clouds-day.jpg";
+  } else if (weatherCondition === "broken clouds") {
+    backgroundImage = "broken-clouds-day.jpg";
+  } else if (weatherCondition === "scattered clouds") {
+    backgroundImage = "scattered-clouds-day.jpg";
+  } else if (weatherCondition === "shower rain") {
+    backgroundImage = "rainy-day.jpg";
+  } else if (weatherCondition === "heavy rain") {
+    backgroundImage = "rainy-day.jpg";
+  } else if (
+    weatherCondition === "thunderstorm" ||
+    weatherCondition === "thunderstorm with heavy rain"
+  ) {
+    backgroundImage = "thunderstorm-day.jpg";
+  } else if (weatherCondition === "Snow") {
+    backgroundImage === "snow-day.jpg";
+  } else if (weatherCondition === "mist" || weatherCondition === "haze") {
+    backgroundImage === "mist.day.jpg";
+  } else if (weatherCondition === "overcast clouds") {
+    backgroundImage = "overcast-clouds-day.jpg";
+  } else if (weatherCondition === "light rain") {
+    backgroundImage = "light-rain-day.jpg";
+  } else {
+    backgroundImage === "scattered-clouds.jpg";
+  }
+  document.body.style.backgroundImage = `url("images.jpg/${backgroundImage}")`;
 }
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
