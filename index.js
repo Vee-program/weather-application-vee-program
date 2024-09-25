@@ -117,6 +117,8 @@ function showWeatherForecast(weatherData) {
 }
 
 function updateBackground(weatherData) {
+  let date = new Date(weatherData.time * 1000);
+
   let weatherCondition = weatherData.condition.description;
   let backgroundImage = " ";
   if (weatherCondition === "clear sky") {
