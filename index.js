@@ -69,7 +69,6 @@ function searchInputCity(event) {
   let inputCity = document.querySelector("#input-city");
   displayTemperature(inputCity.value);
 }
-
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -117,37 +116,72 @@ function showWeatherForecast(weatherData) {
 }
 
 function updateBackground(weatherData) {
-  let date = new Date(weatherData.time * 1000);
+  const latitude = weatherData.coordinates.latitude;
+  const longitude = weatherData.coordinates.longitude;
+
+  const times = SunCalc.getTimes(new Date(), latitude, longitude);
+  let sunrise = times.sunrise;
+  let sunset = times.sunset;
+
+  isDaytime = sunrise;
 
   let weatherCondition = weatherData.condition.description;
   let backgroundImage = " ";
-  if (weatherCondition === "clear sky") {
-    backgroundImage = "clear-sky-day.jpg";
-  } else if (weatherCondition === "few clouds") {
-    backgroundImage = "few-clouds-day.jpg";
-  } else if (weatherCondition === "broken clouds") {
-    backgroundImage = "broken-clouds-day.jpg";
-  } else if (weatherCondition === "scattered clouds") {
-    backgroundImage = "scattered-clouds-day.jpg";
-  } else if (weatherCondition === "shower rain") {
-    backgroundImage = "rainy-day.jpg";
-  } else if (weatherCondition === "heavy rain") {
-    backgroundImage = "rainy-day.jpg";
-  } else if (
-    weatherCondition === "thunderstorm" ||
-    weatherCondition === "thunderstorm with heavy rain"
-  ) {
-    backgroundImage = "thunderstorm-day.jpg";
-  } else if (weatherCondition === "Snow") {
-    backgroundImage === "snow-day.jpg";
-  } else if (weatherCondition === "mist" || weatherCondition === "haze") {
-    backgroundImage === "mist.day.jpg";
-  } else if (weatherCondition === "overcast clouds") {
-    backgroundImage = "overcast-clouds-day.jpg";
-  } else if (weatherCondition === "light rain") {
-    backgroundImage = "light-rain-day.jpg";
-  } else {
-    backgroundImage === "scattered-clouds.jpg";
+
+  switch (weatherCondition) {
+    case "clear sky":
+      backgroundImage = isDaytime ? "clear-sky-day.jpg" : "clear-sky-night.jpg";
+      break;
+    case "few clouds":
+      backgroundImage = isDaytime
+        ? "few-clouds-day.jpg"
+        : "few-clouds-night.jpg";
+      break;
+    case "broken clouds":
+      backgroundImage = isDaytime
+        ? "broken-clouds-day.jpg"
+        : "broken-clouds-night.jpg";
+      break;
+    case "scattered clouds":
+      backgroundImage = isDaytime
+        ? "scattered-clouds-day.jpg"
+        : "scattered-clouds-night.jpg";
+      break;
+    case "snow":
+      backgroundImage = isDaytime ? "snow-day-jpg.jpg" : "snow-night.jpg";
+      break;
+    case "thunderstorm":
+      backgroundImage = isDaytime
+        ? "thunderstorm-day.jpg"
+        : "thunderstorm-night.jpg";
+      break;
+    case "thunderstom with heavy rain":
+      backgroundImage = isDaytime
+        ? "thunderstorm-day.jpg"
+        : "thunderstom-night.jpg";
+      break;
+    case "haze":
+      backgroundImage = isDaytime ? "mist-day.jpg" : "mist-night.jpg";
+      break;
+    case "mist":
+      backgroundImage = isDaytime ? "mist-day.jpg" : "mist-night.jpg";
+      break;
+    case "heavy rain":
+      backgroundImage = isDaytime ? "rainy-day.jpg" : "rainy-night.jpg";
+      break;
+    case "shower rain":
+      backgroundImage = isDaytime ? "rainy-day.jpg" : "rainy-night.jpg";
+      break;
+    case "light rain":
+      backgroundImage = isDaytime ? "light-rain-day.jpg" : "rainy-night.jpg";
+      break;
+    case "overcast clouds":
+      backgroundImage = isDaytime
+        ? "overcast-clouds-day.jpg"
+        : "broken-clouds-night.jpg";
+      break;
+    default:
+      backgroundImage = isDaytime ? "broken clouds" : "clear-sky-night.jpg";
   }
   document.body.style.backgroundImage = `url("images.jpg/${backgroundImage}")`;
 }
