@@ -9,6 +9,10 @@ function showCurrentTemperature(weatherData) {
   let temperature = Math.round(weatherData.temperature.current);
   let currentDate = document.querySelector(".current-date");
   let currentCity = document.querySelector(".current-city");
+  let currentCityDate = moment()
+    .tz(data.timezone)
+    .format("dddd, MMMM D, YYYY h:m A");
+  alert(currentCityDate);
   let date = new Date(weatherData.time * 1000);
   currentCity.innerHTML = weatherData.city;
   currentTemperatureValue.textContent = temperature;
