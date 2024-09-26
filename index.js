@@ -190,7 +190,13 @@ function updateBackground(weatherData) {
   }
   document.body.style.backgroundImage = `url("images.jpg/${backgroundImage}")`;
 }
+
+fetch("http://ip-api.com/json/")
+  .then((response) => response.json())
+  .then((data) => displayTemperature(data.city))
+  .catch((error) => console.error("Error:", error));
+
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
 
-displayTemperature("Pretoria");
+displayTemperature();
