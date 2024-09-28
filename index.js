@@ -1,4 +1,4 @@
-function showCurrentTemperature(weatherData) {
+function showCurrentTemperature(weatherData, city) {
   let currentTemperatureValue = document.querySelector(
     "#current-temperature-value"
   );
@@ -7,21 +7,13 @@ function showCurrentTemperature(weatherData) {
   let currentWindSpeed = document.querySelector("#current-wind-speed");
   let weatherEmoji = document.querySelector(".weather-emoji");
   let temperature = Math.round(weatherData.temperature.current);
-  let currentDate = document.querySelector(".current-date");
   let currentCity = document.querySelector(".current-city");
-  let currentCityDate = moment()
-    .tz(data.timezone)
-    .format("dddd, MMMM D, YYYY h:m A");
-  alert(currentCityDate);
-  let date = new Date(weatherData.time * 1000);
   currentCity.innerHTML = weatherData.city;
-  currentTemperatureValue.textContent = temperature;
+  currentTemperatureValue.textContent = `${temperature}°c`;
   description.textContent = weatherData.condition.description;
   currentHumidity.textContent = `${weatherData.temperature.humidity}%`;
   currentWindSpeed.textContent = `${weatherData.wind.speed}km/h`;
   weatherEmoji.innerHTML = `<img src="${weatherData.condition.icon_url}" class="weather-emoji" />`;
-  currentDate.innerHTML = showCurrentDate(date);
-
   displayForecast(weatherData.city);
 }
 
@@ -64,8 +56,21 @@ function displayTemperature(city) {
 
       showCurrentTemperature(weatherData);
       updateBackground(weatherData);
+      currentCityTime(weatherData);
     })
     .catch((error) => console.log("Error fetching weather data", error));
+}
+
+function currentCityTime(weatherData) {
+  const offsetInHours = weatherData.coordinates.longitude / 15;
+  const utcTime = new Date(weatherData.time * 1000);
+  const localTime = new Date(
+    utcTime.getTime() + offsetInHours * 60 * 60 * 1000
+  );
+  const options = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
+  const formattedTime = localTime.toLocaleTimeString("en-US", options);
+  let currentDate = document.querySelector(".current-date");
+  currentDate.innerHTML = formattedTime;
 }
 
 function searchInputCity(event) {
@@ -197,8 +202,12 @@ function updateBackground(weatherData) {
 
 fetch("http://ip-api.com/json/")
   .then((response) => response.json())
-  .then((data) => displayTemperature(data.city))
-  .catch((error) => console.error("Error:", error));
+  .then((data) => {
+    const city = data.city;
+    const timezone = data.timezone;
+    displayTemperature(city);
+  })
+  .catch((error) => console.log("Error:", error));
 
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);

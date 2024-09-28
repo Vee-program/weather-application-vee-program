@@ -24,52 +24,55 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.37/moment-timezone-with-data-1970-2030.min.js"></script>
   </head>
   <body>
-    <div class="weather-container">
-      <form>
-        <input
-          type="text"
-          class="input-city"
-          id="input-city"
-          placeholder="Enter a city" />
-        <input type="submit" value="Search" class="search-button" />
-      </form>
-      <main>
-        <div class="current-info">
-          <span class="current-city">Paris</span><br />
-          <span class="current-date">Mon 14 February 13:21</span>
-          <p class="temperature-value">
-            <span class="weather-emoji"></span
-            ><span id="current-temperature-value">14</span>°C
-          </p>
-          <div class="current-temperature">
-            <span
-              ><span id="description">Clear sky</span> <br />Humidity:
-              <strong id="current-humidity">90%</strong>, Wind:
-              <strong id="current-wind-speed">2.75km/h</strong></span
-            >
+    <form>
+      <input
+        type="text"
+        class="input-city"
+        id="input-city"
+        placeholder="Enter a city" />
+      <button>
+        <img src="images.jpg/search-icon.png" />
+      </button>
+    </form>
+    <main>
+      <div class="city-date">
+        <div class="current-city"></div>
+        <span class="current-date"></span>
+      </div>
+      <div class="current-info">
+        <div class="temperature-value">
+          <div class="weather-emoji"></div>
+          <div id="current-temperature-value"></div>
           </div>
+      </div>
+        <div class="current-temperature">
+          <span
+            ><span id="description"></span> <br />Humidity:
+            <strong id="current-humidity"></strong>, Wind:
+            <strong id="current-wind-speed"></strong
+          ></span>
         </div>
-        <div class="weather-forecast" id="forecast"></div>
-      </main>
-      <footer>
-        <p>
-          <em> This project was coded by</em>
-          <a href="https://github.com/Vee-program" target="_blank"
-            >Thembelihle Masilela</a
-          >
-          <em>is</em>
-          <a
-            href="https://github.com/Vee-program/weather-application-vee-program"
-            target="_blank"
-            >open-sourced on Github</a
-          >
-          <em>and</em>
-          <a href="https://veeprogram.netlify.app/" target="_blank"
-            >hosted on Netlify</a
-          >
-        </p>
-      </footer>
-    </div>
+      </div>
+      <div class="weather-forecast" id="forecast"></div>
+    </main>
+    <footer>
+      <p>
+        <em> This project was coded by</em>
+        <a href="https://github.com/Vee-program" target="_blank"
+          >Thembelihle Masilela</a
+        >
+        <em>is</em>
+        <a
+          href="https://github.com/Vee-program/weather-application-vee-program"
+          target="_blank"
+          >open-sourced on Github</a
+        >
+        <em>and</em>
+        <a href="https://veeprogram.netlify.app/" target="_blank"
+          >hosted on Netlify</a
+        >
+      </p>
+    </footer>
     <script src="index.js"></script>
   </body>
 </html>
