@@ -53,31 +53,33 @@ function displayTemperature(city) {
     .get(apiUrl)
     .then((response) => {
       const weatherData = response.data;
-      const lat = weatherData.coordinates.latitude;
-      const lon = weatherData.coordinates.longitude;
-      const weather = weatherData.condition.description;
-      const temperature = weatherData.temperature.current;
-
-      showCurrentTemperature(weatherData);
-      updateBackground(weatherData);
-      currentCityTime(weatherData);
+      const lat = response.data.coordinates.latitude;
+      const lon = response.data.coordinates.longitude;
+      const weather = response.data.condition.description;
+      const temperature = response.data.temperature.current;
 
       var marker = L.marker([lat, lon]).addTo(map);
       marker.bindPopup(`Weather: ${weather}<br>Temperature: ${temperature} °C`);
+
+      showCurrentTemperature(weatherData);
+      updateBackground(weatherData);
+      displayCityTime(weatherData);
     })
     .catch((error) => console.log("Error fetching weather data", error));
 }
 
-function currentCityTime(weatherData) {
-  const offsetInHours = weatherData.coordinates.longitude / 15;
-  const utcTime = new Date(weatherData.time * 1000);
-  const localTime = new Date(
-    utcTime.getTime() + offsetInHours * 60 * 60 * 1000
-  );
-  const options = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
-  const formattedTime = localTime.toLocaleTimeString("en-US", options);
-  let currentDate = document.querySelector(".current-date");
-  currentDate.innerHTML = formattedTime;
+function showCurrentTime(response) {
+  const data = response.data;
+  const currentDate = document.querySelector(".current-date");
+  currentDate.innerHTML = data.formatted;
+}
+
+function displayCityTime(weatherData) {
+  const apiKey = " P72WNLIA4S1E";
+  const lat = weatherData.coordinates.latitude;
+  const lng = weatherData.coordinates.longitude;
+  const apiUrl = `https://api.timezonedb.com/v2.1/get-time-zone?key=${apiKey}&format=json&by=position&lat=${lat}&lng=${lng}`;
+  axios.get(apiUrl).then(showCurrentTime);
 }
 
 function searchInputCity(event) {
@@ -231,11 +233,11 @@ map.locate({ setView: true, maxZoom: 16 });
 
 function onLocationFound(e) {
   var radius = e.accuracy / 2;
-  L.marker(e.lating)
+  L.marker(e.latlng)
     .addTo(map)
     .bindPopup("You are within" + radius + "meters from this point")
     .openPopup();
-  L.circle(e.lating, radius).addTo(map);
+  L.circle(e.latlng, radius).addTo(map);
 }
 map.on("locationfound", onLocationFound);
 
