@@ -53,10 +53,17 @@ function displayTemperature(city) {
     .get(apiUrl)
     .then((response) => {
       const weatherData = response.data;
+      const lat = weatherData.coordinates.latitude;
+      const lon = weatherData.coordinates.longitude;
+      const weather = weatherData.condition.description;
+      const temperature = weatherData.temperature.current;
 
       showCurrentTemperature(weatherData);
       updateBackground(weatherData);
       currentCityTime(weatherData);
+
+      var marker = L.marker([lat, lon]).addTo(map);
+      marker.bindPopup(`Weather: ${weather}<br>Temperature: ${temperature} °C`);
     })
     .catch((error) => console.log("Error fetching weather data", error));
 }
@@ -208,15 +215,6 @@ function updateBackground(weatherData) {
   document.body.style.backgroundImage = `url("images.jpg/${backgroundImage}")`;
 }
 
-fetch("http://ip-api.com/json/")
-  .then((response) => response.json())
-  .then((data) => {
-    const city = data.city;
-    const timezone = data.timezone;
-    displayTemperature(city);
-  })
-  .catch((error) => console.log("Error:", error));
-
 var map = L.map("map").setView([51.505, -0.09], 13);
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -228,6 +226,18 @@ L.marker([51.5, -0.09])
   .addTo(map)
   .bindPopup("A pretty CSS popup.<br> Easily customizable.")
   .openPopup();
+
+map.locate({ setView: true, maxZoom: 16 });
+
+function onLocationFound(e) {
+  var radius = e.accuracy / 2;
+  L.marker(e.lating)
+    .addTo(map)
+    .bindPopup("You are within" + radius + "meters from this point")
+    .openPopup();
+  L.circle(e.lating, radius).addTo(map);
+}
+map.on("locationfound", onLocationFound);
 
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
