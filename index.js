@@ -80,7 +80,15 @@ function searchInputCity(event) {
 }
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let days = [
+    "Today",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   return days[date.getDay()];
 }
@@ -102,7 +110,7 @@ function showWeatherForecast(weatherData) {
   let forecastHtml = " ";
 
   weatherData.daily.forEach(function (day, index) {
-    if (index < 5) {
+    if (index < 7) {
       forecastHtml =
         forecastHtml +
         `<div class="weather-forecast-day">
