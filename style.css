@@ -309,22 +309,42 @@ footer {
     margin-bottom: 40px;
   }
 }
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 350px) {
   body {
     flex-direction: column;
+    background-size: auto;
   }
   .current-city {
-    font-size: 30px;
+    font-size: 35px;
+    color: white;
   }
   .current-date {
     font-size: 12px;
+    margin-bottom: 25px;
+  }
+  #input-city {
+    width: 200px;
+    height: 30px;
+  }
+  button {
+    width: 20px;
+  }
+  button,
+  .input-city {
+    position: absolute;
+    top: 10%;
+    right: 24%;
+    margin-top: 55px;
+    margin-right: 10px;
   }
   .current-info {
+    position: absolute;
     padding: 5px;
-    top: 1%;
+    top: 15%;
+    left: 40%;
   }
   #current-temperature-value {
-    font-size: 8vw;
+    font-size: 10vw;
     font-weight: 100;
   }
   .weather-emoji {
@@ -332,9 +352,9 @@ footer {
     height: 100px;
   }
   .current-temperature {
-    width: 12px;
+    font-size: 15px;
     top: 20%;
-    padding-left: 15px;
+    padding-left: 20px;
   }
   .input-city {
     width: 10%;
@@ -360,10 +380,11 @@ footer {
     grid-gap: 10px;
     top: 40%;
     margin-bottom: 10px;
+    margin-left: 10px;
   }
   .forecast-icon {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
   }
   div.map {
     right: 1%;
