@@ -46,6 +46,57 @@ function showCurrentDate(date) {
   return `${day},${month} ${hours}:${minutes}`;
 }
 
+function displayIcon(weatherData) {
+  let weatherEmoji = document.querySelector(".weather-emoji");
+
+  weatherEmoji.innerHTML = "";
+
+  switch (weatherData.condition.description) {
+    case "clear sky":
+      weatherEmoji.innerHTML = `<img src="images.jpg/sun.png" class="sun" />`;
+      break;
+    case "few clouds":
+      weatherEmoji.innerHTML = `<img src="images.jpg/cloud-day-icon.png" class="cloud-sun" />`;
+      break;
+    case "scattered clouds":
+      weatherEmoji.innerHTML = `<img src="images.jpg/cloud-night-icon.png" class="cloudy" />
+      <img src="images.jpg/cloud-night-icon.png" class="cloud" />`;
+      break;
+    case "broken clouds":
+      weatherEmoji.innerHTML = `<img src="images.jpg/cloud-night-icon.png" class="cloudy" />
+      <img src="images.jpg/cloud-night-icon.png" class="cloud" />`;
+      break;
+    case "overcast clouds":
+      weatherEmoji.innerHTML = `<img src="images.jpg/cloud-night-icon.png" class="cloudy" />
+      <img src="images.jpg/cloud-night-icon.png" class="cloud" />`;
+      break;
+    case "shower rain":
+      weatherEmoji.innerHTML = `<img src="images.jpg/rainy-icon.png" class="rain" />`;
+      break;
+    case "rain":
+      weatherEmoji.innerHTML = `<img src="images.jpg/rainy-icon.png" class="rain" />`;
+      break;
+    case "light rain":
+      weatherEmoji.innerHTML = `<img src="images.jpg/rainy-icon.png" class="rain" />`;
+      break;
+    case "moderate rain":
+      weatherEmoji.innerHTML = `<img src="images.jpg/rainy-icon.png" class="rain" />`;
+      break;
+    case "snow":
+      weatherEmoji.innerHTML = `<img src="images.jpg/snow.png" class="snow" />
+      <img src="images.jpg/snowing.png" class="snowing" />`;
+      break;
+    case "thunderstorm":
+      weatherEmoji.innerHTML = `<img src="images.jpg/thunderstorm-icon.png" class="storm" />`;
+      break;
+    case "mist":
+      weatherEmoji.innerHTML = `<img src="images.jpg/windy-icon.png" class="mist" />`;
+    case "haze":
+      weatherEmoji.innerHTML = `<img src="images.jpg/windy-icon.png" class="mist" />`;
+      break;
+  }
+}
+
 function displayTemperature(city) {
   let apiKey = "19fa4a86457804tcabc33b0a088f366o";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
@@ -64,6 +115,7 @@ function displayTemperature(city) {
       showCurrentTemperature(weatherData);
       updateBackground(weatherData);
       displayCityTime(weatherData);
+      displayIcon(weatherData);
     })
     .catch((error) => console.log("Error fetching weather data", error));
 }
@@ -90,7 +142,7 @@ function searchInputCity(event) {
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let days = [
-    "Today",
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -142,6 +194,7 @@ function showWeatherForecast(weatherData) {
 }
 
 function updateBackground(weatherData) {
+  let currentCity = document.querySelector(".current-city");
   let weatherCondition = weatherData.condition.icon;
   let backgroundImage = " ";
 
@@ -151,65 +204,78 @@ function updateBackground(weatherData) {
       break;
     case "clear-sky-night":
       backgroundImage = "clear-sky-night.jpg";
+      document.body.style.color = "white";
       break;
     case "few-clouds-day":
       backgroundImage = "few-clouds-day.jpg";
       break;
     case "few-clouds-night":
       backgroundImage = "few-clouds-night.jpg";
+      document.body.style.color = "white";
       break;
     case "broken-clouds-day":
       backgroundImage = "broken-clouds-day.jpg";
       break;
     case "broken-clouds-night":
       backgroundImage = "broken-clouds-night.jpg";
+      document.body.style.color = "white";
+      currentCity.style.color = "white";
       break;
     case "scattered-clouds-day":
       backgroundImage = "scattered-clouds-day.jpg";
       break;
     case "scattered-clouds-night":
       backgroundImage = "scattered-clouds-night.jpg";
+      document.body.style.color = "white";
+      currentCity.style.color = "white";
       break;
     case "snow-day":
       backgroundImage = "snow-day-jpg.jpg";
       break;
     case "snow-night":
       backgroundImage = "snow-night.jpg";
+      document.body.style.color = "white";
       break;
     case "thunderstorm-day":
       backgroundImage = "thunderstorm-day.jpg";
       break;
     case "thunderstom-night":
       backgroundImage = "thunderstorm-night.jpg";
+      document.body.style.color = "white";
       break;
     case "mist-day":
       backgroundImage = "mist-day.jpg";
       break;
     case "mist-night":
       backgroundImage = "mist-night.jpg";
+      document.body.style.color = "white";
       break;
     case "heavy-rain-day":
       backgroundImage = "rainy-day.jpg";
     case "heavy-rain-night":
       backgroundImage = "rainy-night.jpg";
+      document.body.style.color = "white";
       break;
     case "shower-rain-day":
       backgroundImage = "rainy-day.jpg";
       break;
     case "rainy-night":
       backgroundImage = "rainy-night.jpg";
+      document.body.style.color = "white";
       break;
     case "light-rain-day":
       backgroundImage = "light-rain-day.jpg";
       break;
     case "light-rain-night":
       backgroundImage = "rainy-night.jpg";
+      document.body.style.color = "white";
       break;
     case "overcast-clouds-day":
       backgroundImage = "overcast-clouds-day.jpg";
       break;
     case "overcast-clouds-night":
       backgroundImage = "broken-clouds-night.jpg";
+      document.body.style.color = "white";
       break;
     default:
       backgroundImage = "broken-clouds-day.jpg";

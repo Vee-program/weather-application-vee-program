@@ -37,10 +37,135 @@ body {
   font-size: 7vw;
   font-weight: 200;
 }
-.weather-emoji {
-  margin: 0;
+.emoji-container {
+  position: relative;
+}
+.sun {
   width: 100%;
-  height: 200px;
+  height: 100px;
+  background-color: transparent;
+  animation: spin 4s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.cloudy {
+  opacity: 0;
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  animation: fadeCloud 6s ease-in-out infinite;
+}
+@keyframes fadeCloud {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.cloud {
+  width: 80%;
+  height: 100px;
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.cloud-sun {
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  animation: moveClouds 6s linear infinite;
+}
+@keyframes moveClouds {
+  0% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(10px);
+  }
+}
+.rain {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  background-color: transparent;
+  animation: rainEffect 1s linear infinite;
+}
+@keyframes rainEffect {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translatey(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.mist {
+  width: 80%;
+  height: 100px;
+  animation: gust 2s ease-in-out infinite;
+}
+@keyframes gust {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+.snowing {
+  width: 80%;
+  height: 100px;
+  animation: snowEffect 1s linear infinite;
+}
+@keyframes snowEffect {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translatey(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.snow {
+  position: absolute;
+  width: 80%;
+  height: 100px;
+  top: 25;
+  left: 5%;
+  animation: fadeSnow 6s ease-in-out infinite;
+}
+@keyframes fadeSnow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .current-temperature {
   font-size: 18px;
@@ -97,7 +222,7 @@ img {
 
 .forecast-icon {
   width: 80px;
-  height: 80px;
+  height: 100px;
   display: block;
   margin: 0 auto;
 }
