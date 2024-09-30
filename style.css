@@ -324,7 +324,7 @@ footer {
     top: 1%;
   }
   #current-temperature-value {
-    font-size: 5vw;
+    font-size: 8vw;
     font-weight: 100;
   }
   .weather-emoji {
@@ -355,6 +355,9 @@ footer {
     padding: 8px;
   }
   .weather-forecast {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
     top: 40%;
     margin-bottom: 10px;
   }
@@ -365,8 +368,8 @@ footer {
   div.map {
     right: 1%;
     top: 15%;
-    width: 25%;
-    height: 150px;
+    width: 100%;
+    height: auto;
   }
   footer {
     margin-bottom: 30px;
