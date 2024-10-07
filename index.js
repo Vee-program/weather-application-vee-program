@@ -11,8 +11,8 @@ function showCurrentTemperature(weatherData, city) {
   currentCity.innerHTML = weatherData.city;
   currentTemperatureValue.textContent = `${temperature}°c`;
   description.textContent = weatherData.condition.description;
-  currentHumidity.textContent = `${weatherData.temperature.humidity}%`;
-  currentWindSpeed.textContent = `${weatherData.wind.speed}km/h`;
+  currentHumidity.textContent = `Humidity${weatherData.temperature.humidity}%`;
+  currentWindSpeed.textContent = `,Wind:${weatherData.wind.speed}km/h`;
   weatherEmoji.innerHTML = `<img src="${weatherData.condition.icon_url}" class="weather-emoji" />`;
   displayForecast(weatherData.city);
 }
@@ -301,11 +301,13 @@ function onLocationFound(e) {
   var radius = e.accuracy / 2;
   L.marker(e.latlng)
     .addTo(map)
-    .bindPopup("You are within" + radius + "meters from this point")
+    .bindPopup("You are within" + " " + radius + " " + "meters from this point")
     .openPopup();
   L.circle(e.latlng, radius).addTo(map);
 }
 map.on("locationfound", onLocationFound);
+
+function favoriteCities() {}
 
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);
