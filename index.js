@@ -11,8 +11,8 @@ function showCurrentTemperature(weatherData, city) {
   currentCity.innerHTML = weatherData.city;
   currentTemperatureValue.textContent = `${temperature}°c`;
   description.textContent = weatherData.condition.description;
-  currentHumidity.textContent = `Humidity${weatherData.temperature.humidity}%`;
-  currentWindSpeed.textContent = `,Wind:${weatherData.wind.speed}km/h`;
+  currentHumidity.textContent = `Humidity: ${weatherData.temperature.humidity}%`;
+  currentWindSpeed.textContent = `,Wind: ${weatherData.wind.speed}km/h`;
   weatherEmoji.innerHTML = `<img src="${weatherData.condition.icon_url}" class="weather-emoji" />`;
   displayForecast(weatherData.city);
 }
