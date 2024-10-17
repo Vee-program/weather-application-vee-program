@@ -138,6 +138,7 @@ function searchInputCity(event) {
   event.preventDefault();
   let inputCity = document.querySelector("#input-city");
   displayTemperature(inputCity.value);
+  inputCity.value = " ";
 }
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
@@ -174,7 +175,8 @@ function showWeatherForecast(weatherData) {
     if (index < 7) {
       forecastHtml =
         forecastHtml +
-        `<div class="weather-forecast-day">
+        `<div class="col-3">
+        <div class="weather-forecast-day">
         <div class="weather-forecast-date">${formatDay(day.time)}</div>
 
      <img class="forecast-icon" src="${day.condition.icon_url}"/>
@@ -185,6 +187,7 @@ function showWeatherForecast(weatherData) {
     <span class="weather-forecast-temperature">${Math.round(
       day.temperature.minimum
     )}°C</span>
+    </div>
     </div>
     </div>`;
     }
@@ -307,7 +310,19 @@ function onLocationFound(e) {
 }
 map.on("locationfound", onLocationFound);
 
-function favoriteCities() {}
+function hideSidebar() {
+  let sideBar = document.querySelector(".sidebar");
+  sideBar.style.display = "none";
+}
+let closeIcon = document.querySelector(".close-icon");
+closeIcon.addEventListener("click", hideSidebar);
+
+function showSidebar() {
+  let sideBar = document.querySelector(".sidebar");
+  sideBar.style.display = "block";
+}
+let menuIcon = document.querySelector(".menu-icon");
+menuIcon.addEventListener("click", showSidebar);
 
 let form = document.querySelector("form");
 form.addEventListener("submit", searchInputCity);

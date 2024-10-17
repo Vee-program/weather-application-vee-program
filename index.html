@@ -41,6 +41,29 @@
   <body>
     <div class="container">
       <div class="column">
+        <div class="icon-container">
+          <img
+            src="images.jpg/menu-icon.png"
+            alt="menu icon"
+            class="menu-icon" />
+        </div>
+        <div class="nav-container">
+          <nav class="sidebar">
+            <img src="images.jpg/close-icon.png" class="close-icon" />
+            <ul>
+              <li class="nav-list">
+                <p class="local">Favorite location</p>
+                <div class="location">Lotus Gardens</div>
+                <hr />
+              </li>
+              <li class="nav-list">
+                <p class="other small">Other location</p>
+                <div class="other-location">Singapore</div>
+              </li>
+            </ul>
+            <a href="welcome.html" class="manage-location">Manage locations</a>
+          </nav>
+        </div>
         <div class="col-1">
           <div class="city-date">
             <div class="current-city"></div>
@@ -53,8 +76,8 @@
                 class="input-city"
                 id="input-city"
                 placeholder="Enter a city" />
-              <button>
-                <img src="images.jpg/search-icon.png" />
+              <button class="search-btn">
+                <img src="images.jpg/search-icon.png" class="search-icon" />
               </button>
             </div>
           </form>
@@ -76,9 +99,7 @@
             ></span>
           </div>
         </div>
-        <div class="col-3">
-          <div class="weather-forecast" id="forecast"></div>
-        </div>
+        <div class="weather-forecast" id="forecast"></div>
         <div class="col-4">
           <div class="map" id="map"></div>
         </div>
