@@ -14,7 +14,47 @@ function showCurrentTemperature(weatherData, city) {
   currentHumidity.textContent = `Humidity: ${weatherData.temperature.humidity}%`;
   currentWindSpeed.textContent = `,Wind: ${weatherData.wind.speed}km/h`;
   weatherEmoji.innerHTML = `<img src="${weatherData.condition.icon_url}" class="weather-emoji" />`;
+
   displayForecast(weatherData.city);
+}
+
+function getLocalStorageData(weatherData) {
+  let weatherInfo = {
+    city: weatherData.city,
+    temperature: `${temperature}°c`,
+    description: weatherData.condition.description,
+    humidity: `Humidity: ${weatherData.temperature.humidity}%`,
+    windSpeed: `,Wind: ${weatherData.wind.speed}km/h`,
+    emoji: `<img src="${weatherData.condition.icon_url}" class="weather-emoji" />`,
+  };
+
+  let weatherInfoString = JSON.stringify(weatherInfo);
+  localStorage.setItem("weatherInfo", weatherInfoString);
+
+  let savedweatherInfo = localStorage.getItem("weatherInfo");
+  let savedWeather = JSON.parse(savedweatherInfo);
+
+  if (savedWeather.city) {
+    document.querySelector(".current-city").innerHTML = savedWeather.city;
+  }
+  if (savedWeather.temperature) {
+    document.querySelector("#current-temperature-value").innerHTML =
+      savedWeather.temperature;
+  }
+  if (savedWeather.description) {
+    document.querySelector(".description").innerHTML = savedWeather.description;
+  }
+  if (savedWeather.windSpeed) {
+    document.querySelector("#current-wind-speed").innerHTML =
+      savedWeather.windSpeed;
+  }
+  if (savedWeather.emoji) {
+    document.querySelector(".weather-emoji").innerHTML = savedWeather.emoji;
+  }
+  if (savedWeather.humidity) {
+    document.querySelector("#current-humidity").innerHTML =
+      savedWeather.humidity;
+  }
 }
 
 function showCurrentDate(date) {
@@ -116,6 +156,7 @@ function displayTemperature(city) {
       updateBackground(weatherData);
       displayCityTime(weatherData);
       displayIcon(weatherData);
+      getLocalStorageData(weatherData);
     })
     .catch((error) => console.log("Error fetching weather data", error));
 }

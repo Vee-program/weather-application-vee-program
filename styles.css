@@ -43,11 +43,10 @@ body {
   padding: 20px;
   margin: 50px auto;
 }
-.col-3:hover {
-}
 .col-4 {
   width: 100%;
   background-color: aqua;
+  position: relative;
 }
 .current-city {
   font-size: 5rem;
@@ -261,10 +260,9 @@ body {
 }
 div.map {
   width: 100%;
-  height: auto;
+  height: 500px;
   position: absolute;
-  bottom: 0%;
-  left: 50%;
+  top: 100%;
 }
 @media (max-width: 480px) {
   .col-2 {
